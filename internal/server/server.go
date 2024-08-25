@@ -18,6 +18,9 @@ func NewServer(p string) *Server {
 func (s *Server) Run() error {
 	router := http.NewServeMux()
 
+	fs := http.FileServer(http.Dir("./internal/web/static"))
+	router.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	router.HandleFunc("POST /user-activity", controllers.UserActivity)
 
 	return http.ListenAndServe(s.port, router)
