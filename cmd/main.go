@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"francorutigliano/githubstats/config"
+	"francorutigliano/githubstats/internal/server"
 	"log"
 )
 
@@ -11,5 +11,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(port)
+	s := server.NewServer(port)
+	if err := s.Run(); err != nil {
+		log.Fatal("error to inicialize the server: ", err)
+	}
 }
