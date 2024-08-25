@@ -21,6 +21,11 @@ func (s *Server) Run() error {
 	fs := http.FileServer(http.Dir("./internal/web/static"))
 	router.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/search", http.StatusPermanentRedirect)
+	})
+
+	router.HandleFunc("GET /search", controllers.Search)
 	router.HandleFunc("POST /user-activity", controllers.UserActivity)
 
 	return http.ListenAndServe(s.port, router)
