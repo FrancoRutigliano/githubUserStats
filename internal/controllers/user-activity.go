@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"francorutigliano/githubstats/internal/models"
+	"francorutigliano/githubstats/pkg/utils"
 	"net/http"
 )
 
@@ -40,5 +41,12 @@ func UserActivity(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "error encoding", http.StatusInternalServerError)
 		return
 	}
+
+	data := map[string]any{
+		"username": user,
+		"activity": payload,
+	}
+
+	utils.Render(w, "user-activity.html", data)
 
 }
