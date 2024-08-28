@@ -1,10 +1,15 @@
 package controllers
 
 import (
-	"francorutigliano/githubstats/pkg/utils"
+	"francorutigliano/githubstats/internal/templates"
 	"net/http"
 )
 
 func Search(w http.ResponseWriter, r *http.Request) {
-	utils.Render(w, "search.html", "hola mundo")
+	c := templates.Search()
+
+	err := templates.Layout(c, "search user").Render(r.Context(), w)
+	if err != nil {
+		http.Error(w, "error rendering template", http.StatusInternalServerError)
+	}
 }

@@ -1,11 +1,32 @@
 package templates
 
+templ header(title string) {
+    <head>
+        <title>{ title }</title>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="static/script/htmx.min.js">
+        <link rel="stylesheet" href="static/css/styles.css">
+            
+        </link>
+            
+        </script>
+    </head>
+}
+
 templ footer() {
-    
+    <footer class="bg-primary-600 p-4">
+        <p class="text-center text-white">© 2024 GitHub User Stats</p>
+    </footer>
 }
 
 
-templ Layout() {
+templ Layout(contents templ.Component, title string) {
+    @header(title)
+    <main class="flex-1 container">
+        @contents
+    </main>
 
+    @footer()
 }
 
