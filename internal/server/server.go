@@ -2,7 +2,10 @@ package server
 
 import (
 	"francorutigliano/githubstats/internal/controllers"
+	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 type Server struct {
@@ -16,17 +19,13 @@ func NewServer(p string) *Server {
 }
 
 func (s *Server) Run() error {
-	router := http.NewServeMux()
+	r := mux.NewRouter()
 
-	fs := http.FileServer(http.Dir("./internal/web/static"))
-	router.Handle("/static/", http.StripPrefix("/static/", fs))
+	r.HandleFunc("/", controllers.Home).Methods("GET")
+	r.HandleFunc("/search", controllers.Search).Methods("GET")
+	r.HandleFunc("/user-activity", controllers.UserActivity).Methods("POST")
 
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/search", http.StatusPermanentRedirect)
-	})
-
-	router.HandleFunc("GET /search", controllers.Search)
-	router.HandleFunc("POST /user-activity", controllers.UserActivity)
-
-	return http.ListenAndServe(s.port, router)
+	r.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+	log.Printf("server running on localhost%s\n", s.port)
+	return http.ListenAndServe(s.port, r)
 }

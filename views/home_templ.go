@@ -38,7 +38,7 @@ func Home() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1 class=\"text-3xl font-bold text-center my-4\">Car Show Example App</h1><div class=\"flex justify-center my-8\"><a href=\"/cars\" class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\">See Available Cars</a></div><div class=\"flex justify-center my-8\"><p>This is a simple example app to demonstrate the use of Go + HTMX + Templ.</p></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"h-screen bg-red-500 flex justify-center item-center\"><div class=\"bg-blue-700\"><h1 class=\"text-3xl font-bold text-gray-900 mb-4\">Github Activity</h1><div class=\"my-8\"><a href=\"/search\" class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\">Checkout your profile</a></div><div class=\"my-8\"><p class=\"text-gray-700\">This is a simple example app to demonstrate the use of Go + HTMX + Templ.</p></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
